@@ -35,8 +35,13 @@ class Post(InheritanceCastModel):
     original_id = models.CharField(max_length=800)
     featured = models.BooleanField(default=False)
 
+    @property
+    def last_id(self):
+        return Post.objects.latest().cast().created_at
+
     class Meta:
         abstract = True
+        get_latest_by = "created_at"
 
 class InstagramPost(Post):
     image_url = models.CharField(max_length=500)
