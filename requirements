@@ -1,0 +1,7 @@
+django
+south
+gunicorn
+simplejson
+django-ses
+psycopg2
+django_compressor
