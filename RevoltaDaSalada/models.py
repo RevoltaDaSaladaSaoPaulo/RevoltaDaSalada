@@ -32,6 +32,8 @@ class Post(InheritanceCastModel):
     author_thumbnail_url = models.CharField(max_length=500)
     url = models.URLField()
     created_at = models.DateTimeField()
+    original_id = models.CharField(max_length=800)
+    featured = models.Boolean(default=False)
 
     class Meta:
         abstract = True
