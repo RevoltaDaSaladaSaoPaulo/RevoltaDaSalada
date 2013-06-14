@@ -45,6 +45,7 @@ class Post(InheritanceCastModel):
 
 class InstagramPost(Post):
     image_url = models.CharField(max_length=500)
+    min_tag_id = models.PositiveIntegerField()
 
 class TwitterPost(Post):
     pass

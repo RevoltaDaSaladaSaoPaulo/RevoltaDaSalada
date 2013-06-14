@@ -25,7 +25,20 @@
   <h1>Revolta da Salada</h1>
 </header>
 
-<div role="main" id="main">{% block main_content %}{% endblock %}</div>
+<div role="main" id="main">
+    {% block main_content %}{% endblock %}
+    {% for instagramPost in instagramPosts %}
+        <div class="instagramPost">
+            <div class="user-profile">
+                <img style="-webkit-user-select: none" src="{{instagramPost.author_thumbnail_url}}" />
+                <span>{{instagramPost.author}}</span>
+            </div>
+            <div class="photo">
+                <img style="-webkit-user-select: none" src="{{instagramPost.image_url}}" />
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
 <footer class="site-footer min-layout-width" role="contentinfo">
 
