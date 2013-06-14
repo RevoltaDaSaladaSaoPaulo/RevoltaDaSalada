@@ -1,4 +1,4 @@
-from django import models
+from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 class InheritanceCastModel(models.Model):
@@ -33,7 +33,7 @@ class Post(InheritanceCastModel):
     url = models.URLField()
     created_at = models.DateTimeField()
     original_id = models.CharField(max_length=800)
-    featured = models.Boolean(default=False)
+    featured = models.BooleanField(default=False)
 
     class Meta:
         abstract = True
