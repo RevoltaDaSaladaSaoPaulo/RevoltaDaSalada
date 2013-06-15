@@ -8,7 +8,7 @@ BROKER_URL = 'amqp://guest@127.0.0.1:5672/'
 from datetime import timedelta
 
 CELERY_RESULT_BACKEND = "amqp"
-CELERY_IMPORTS = ("RevoltaDaSalada.tasks.import_instagram", )
+CELERY_IMPORTS = ("tasks.import_instagram", )
 
 CELERYBEAT_SCHEDULE = 'djcelery.schedulers.DatabaseScheduler'
 
