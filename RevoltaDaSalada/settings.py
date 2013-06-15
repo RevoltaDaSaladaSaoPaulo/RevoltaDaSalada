@@ -149,8 +149,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'django.contrib.admin',
-    'RevoltaDaSalada',
     'djcelery'
+    'RevoltaDaSalada',
 )
 
 # A sample logging configuration. The only tangible logging
