@@ -7,7 +7,7 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 from datetime import timedelta
 
-CELERYBEAT_SCHEDULE = djcelery.schedulers.DatabaseScheduler
+CELERYBEAT_SCHEDULE = 'djcelery.schedulers.DatabaseScheduler'
 
 CELERY_TIMEZONE = 'UTC'
 
