@@ -149,7 +149,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'django.contrib.admin',
-    'djcelery'
+    'djcelery',
     'RevoltaDaSalada',
 )
 
