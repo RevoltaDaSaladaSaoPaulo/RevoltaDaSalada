@@ -7,12 +7,7 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 from datetime import timedelta
 
-CELERYBEAT_SCHEDULE = {
-    'import-every-30-seconds': {
-        'task': 'tasks.import_instagram',
-        'schedule': timedelta(seconds=30)
-    },
-}
+CELERYBEAT_SCHEDULE = djcelery.schedulers.DatabaseScheduler
 
 CELERY_TIMEZONE = 'UTC'
 
