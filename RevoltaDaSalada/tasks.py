@@ -1,3 +1,6 @@
+from django.conf import settings
+settings.configure()
+
 from celery import task
 import importPost
 
