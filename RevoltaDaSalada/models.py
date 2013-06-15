@@ -27,6 +27,7 @@ class InheritanceCastModel(models.Model):
         abstract = True
 
 class Post(InheritanceCastModel):
+    id = models.BigIntegerField(primary_key=True)
     description = models.TextField(max_length=500)
     author = models.CharField(max_length=80)
     author_thumbnail_url = models.CharField(max_length=500)
@@ -45,7 +46,7 @@ class Post(InheritanceCastModel):
 
 class InstagramPost(Post):
     image_url = models.CharField(max_length=500)
-    min_tag_id = models.CharField(max_length=100)
+    min_tag_id = models.BigIntegerField()
 
 class TwitterPost(Post):
     pass
