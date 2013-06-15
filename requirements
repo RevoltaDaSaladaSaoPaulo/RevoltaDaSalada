@@ -5,3 +5,6 @@ simplejson
 django-ses
 psycopg2
 django_compressor
+requests
+celery
+django-celery

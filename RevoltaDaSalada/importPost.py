@@ -4,7 +4,7 @@ import requests
 import simplejson as json
 import models, calendar, datetime
 
-def importInstagram():
+def import_instagram():
     if models.InstagramPost.objects.count():
         last_post = models.InstagramPost.objects.latest('min_tag_id')
         min_tag_id = str(last_post.min_tag_id)

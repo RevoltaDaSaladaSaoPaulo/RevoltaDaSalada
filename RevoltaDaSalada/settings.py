@@ -1,5 +1,20 @@
 # Django settings for RevoltaDaSalada project.
 import os
+import djcelery
+
+djcelery.setup_loader()
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'import-every-30-seconds': {
+        'task': 'tasks.import_instagram',
+        'schedule': timedelta(seconds=30)
+    },
+}
+
+CELERY_TIMEZONE = 'UTC'
 
 # Full filesystem path to the project.
 PROJECT_ROOT = os.path.join(
@@ -134,7 +149,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'django.contrib.admin',
-    'RevoltaDaSalada'
+    'RevoltaDaSalada',
+    'djcelery'
 )
 
 # A sample logging configuration. The only tangible logging
