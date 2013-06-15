@@ -7,12 +7,7 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 from datetime import timedelta
 
-CELERYBEAT_SCHEDULE = {
-    'import-every-30-seconds': {
-        'task': 'tasks.import_instagram',
-        'schedule': timedelta(seconds=30)
-    },
-}
+CELERYBEAT_SCHEDULE = 'djcelery.schedulers.DatabaseScheduler'
 
 CELERY_TIMEZONE = 'UTC'
 
@@ -149,8 +144,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'django.contrib.admin',
+    'djcelery',
     'RevoltaDaSalada',
-    'djcelery'
 )
 
 # A sample logging configuration. The only tangible logging
