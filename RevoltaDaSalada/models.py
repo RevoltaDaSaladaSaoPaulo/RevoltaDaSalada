@@ -26,9 +26,7 @@ class InheritanceCastModel(models.Model):
     class Meta:
         abstract = True
 
-class Post(InheritanceCastModel):
-    id = models.BigIntegerField(primary_key=True)
-    description = models.TextField(max_length=500)
+class Post(InheritanceCastModel):    description = models.TextField(max_length=500)
     author = models.CharField(max_length=80)
     author_thumbnail_url = models.CharField(max_length=500)
     url = models.URLField()
