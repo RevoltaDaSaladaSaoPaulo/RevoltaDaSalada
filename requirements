@@ -8,3 +8,4 @@ django_compressor
 requests
 celery
 django-celery
+redis
