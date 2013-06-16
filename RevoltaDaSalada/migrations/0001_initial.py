@@ -11,7 +11,6 @@ class Migration(SchemaMigration):
         # Adding model 'InstagramPost'
         db.create_table(u'RevoltaDaSalada_instagrampost', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('real_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('author_thumbnail_url', self.gf('django.db.models.fields.CharField')(max_length=500)),
@@ -27,7 +26,6 @@ class Migration(SchemaMigration):
         # Adding model 'TwitterPost'
         db.create_table(u'RevoltaDaSalada_twitterpost', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('real_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('author_thumbnail_url', self.gf('django.db.models.fields.CharField')(max_length=500)),
@@ -41,7 +39,6 @@ class Migration(SchemaMigration):
         # Adding model 'FacebookPost'
         db.create_table(u'RevoltaDaSalada_facebookpost', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('real_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('author_thumbnail_url', self.gf('django.db.models.fields.CharField')(max_length=500)),
@@ -76,7 +73,6 @@ class Migration(SchemaMigration):
             'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'original_id': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
-            'real_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
         },
         u'RevoltaDaSalada.instagrampost': {
@@ -90,7 +86,6 @@ class Migration(SchemaMigration):
             'image_url': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'min_tag_id': ('django.db.models.fields.BigIntegerField', [], {}),
             'original_id': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
-            'real_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
         },
         u'RevoltaDaSalada.twitterpost': {
@@ -102,15 +97,7 @@ class Migration(SchemaMigration):
             'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'original_id': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
-            'real_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
 
