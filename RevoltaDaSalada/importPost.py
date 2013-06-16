@@ -17,14 +17,17 @@ def import_instagram():
     if photos:
         next_min_tag_id = int(answer["pagination"]["next_min_id"])
         for photo in photos:
-            id = photo["id"]
-            url = photo["link"]
-            photoUrl = photo["images"]["low_resolution"]["url"]
-            profile_picture = photo["user"]["profile_picture"]
-            caption = photo["caption"]["text"]
-            username = photo["user"]["username"]
-            created_at = datetime.datetime.utcfromtimestamp(float(photo["created_time"]))
-            instagramPost = models.InstagramPost(description=caption, author=username, 
-            	author_thumbnail_url=profile_picture, url=url, original_id=id, image_url=photoUrl, 
-                created_at=created_at, min_tag_id=next_min_tag_id)
-            instagramPost.save()
+            try:
+                id = photo["id"]
+                url = photo["link"]
+                photoUrl = photo["images"]["low_resolution"]["url"]
+                profile_picture = photo["user"]["profile_picture"]
+                caption = photo["caption"]["text"]
+                username = photo["user"]["username"]
+                created_at = datetime.datetime.utcfromtimestamp(float(photo["created_time"]))
+                instagramPost = models.InstagramPost(description=caption, author=username,
+                	author_thumbnail_url=profile_picture, url=url, original_id=id, image_url=photoUrl,
+                    created_at=created_at, min_tag_id=next_min_tag_id)
+                instagramPost.save()
+            except:
+                pass
