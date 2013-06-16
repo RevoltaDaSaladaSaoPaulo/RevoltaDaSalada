@@ -7,7 +7,9 @@ BROKER_URL = 'amqp://guest@127.0.0.1:5672/'
 
 from datetime import timedelta
 
-CELERY_RESULT_BACKEND = "amqp"
+BROKER_URL = 'redis://localhost:6379/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}  # 1 hour.
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 CELERYBEAT_SCHEDULE = 'djcelery.schedulers.DatabaseScheduler'
 
