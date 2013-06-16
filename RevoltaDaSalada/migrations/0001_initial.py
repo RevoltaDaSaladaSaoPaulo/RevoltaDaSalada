@@ -10,8 +10,8 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding model 'InstagramPost'
         db.create_table(u'RevoltaDaSalada_instagrampost', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('real_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('id', self.gf('django.db.models.fields.BigIntegerField')(primary_key=True)),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('author_thumbnail_url', self.gf('django.db.models.fields.CharField')(max_length=500)),
@@ -26,8 +26,8 @@ class Migration(SchemaMigration):
 
         # Adding model 'TwitterPost'
         db.create_table(u'RevoltaDaSalada_twitterpost', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('real_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('id', self.gf('django.db.models.fields.BigIntegerField')(primary_key=True)),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('author_thumbnail_url', self.gf('django.db.models.fields.CharField')(max_length=500)),
@@ -40,8 +40,8 @@ class Migration(SchemaMigration):
 
         # Adding model 'FacebookPost'
         db.create_table(u'RevoltaDaSalada_facebookpost', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('real_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('id', self.gf('django.db.models.fields.BigIntegerField')(primary_key=True)),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('author_thumbnail_url', self.gf('django.db.models.fields.CharField')(max_length=500)),
@@ -74,7 +74,7 @@ class Migration(SchemaMigration):
             'created_at': ('django.db.models.fields.DateTimeField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {'max_length': '500'}),
             'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'id': ('django.db.models.fields.BigIntegerField', [], {'primary_key': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'original_id': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
             'real_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
@@ -86,7 +86,7 @@ class Migration(SchemaMigration):
             'created_at': ('django.db.models.fields.DateTimeField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {'max_length': '500'}),
             'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'id': ('django.db.models.fields.BigIntegerField', [], {'primary_key': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image_url': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'min_tag_id': ('django.db.models.fields.BigIntegerField', [], {}),
             'original_id': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
@@ -100,7 +100,7 @@ class Migration(SchemaMigration):
             'created_at': ('django.db.models.fields.DateTimeField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {'max_length': '500'}),
             'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'id': ('django.db.models.fields.BigIntegerField', [], {'primary_key': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'original_id': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
             'real_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
