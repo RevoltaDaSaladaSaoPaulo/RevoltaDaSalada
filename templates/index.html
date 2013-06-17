@@ -15,8 +15,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/html5bp/normalize.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/html5bp/main.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/common/fonts.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/common/common.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/common.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap-responsive.css">
     {% block extra_css %}
@@ -31,57 +30,89 @@
 <body>
 
 <header class="site-header min-layout-width" role="banner" id="site-header">
-  <h1>Revolta da Salada</h1>
+  <h1>#RevoltaDaSalada</h1>
 </header>
 
 <div role="main" id="main" class="container">
     {% block main_content %}{% endblock %}
-    <div class="span9">
+    <div class="">
     <section>
-    <div class="row-fluid">
-        <ul class="thumbnails">
-            {% for instagramPost in posts %}
-                <li class="span4">
-                <div class="thumbnail">
-                  <a href="{{instagramPost.url}}"><img alt="" style="" src="{{instagramPost.image_url}}"></a>
-                  <div class="caption">
-                    <div class="media">
-                        <div class="pull-left">
-                            <img style="width: 40px; height: 40px;" src="{{instagramPost.author_thumbnail_url}}" />
-                        </div>
-                        <h3 class="media-body">{{instagramPost.author}}</h3>
+    <div class="row" id="posts">
+      {% for post in posts %}
+          <div class="w">
+            <div class="thumbnail">
+              {% if post.cast.image_url %}
+              <a href="{{post.url}}"><img alt="" style="" src="{{post.cast.image_url}}"></a>
+              {% endif %}
+              <div class="caption">
+                <div class="media">
+                    <div class="pull-left">
+                        <img style="width: 40px; height: 40px;" src="{{post.author_thumbnail_url}}" />
                     </div>
-                    <p>{{instagramPost.description}}</p>
-                  </div>
+                    <h3 class="media-body">{{post.author}}</h3>
                 </div>
-                </li>
-            {% endfor %}
-        </ul>
+                <p>{{post.description|truncatechars:150}}</p>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
       </div>
       </section>
   </div>
+  <input type="hidden" class="page" value="1">
 </div>
 
 <footer class="site-footer min-layout-width" role="contentinfo">
 
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/common/common.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/masonry.pkgd.js"></script>
 {% block extra_js %}
     <script type="text/javascript" >
-        function equalHeight(group) {    
-            tallest = 0;    
-            group.each(function() {       
-                thisHeight = $(this).height();       
-                if(thisHeight > tallest) {          
-                    tallest = thisHeight;       
-                }    
-            });    
-            group.each(function() { $(this).height(tallest); });
-        } 
-
         $(document).ready(function() {   
             // equalHeight($(".thumbnail")); 
+
+              var $container = $('#posts');
+
+              $container.masonry({
+                itemSelector: '.w'
+              });
+
+              function truncate(str, len) {
+                if(str.length < len) return str;
+                return str.substring(0, len) + '...';
+              }
+              /*var LOADING = false;
+              $(window).on('scroll', function(a, b, c) {
+                if(!LOADING && ($(this).scrollTop() + $(this).height()) / $(document).height() > 0.85) {
+                  LOADING = true;
+                  $.getJSON('/posts', { page: parseInt($('.page').val()) + 1}, function(data) {
+                    $('.page').val(data.page);
+                    var items = [];
+                    $.each(JSON.parse(data.posts), function(i, post) {
+                      var item = '<div class="w">';
+                      item += '<div class="thumbnail">';
+                      if(post.image_url) {
+                        item += '<a href="'+ post.url +'"><img alt="" style="" src="'+ post.image_url +'"></a>';
+                      }
+                      item += '<div class="caption">';
+                      item += '<div class="media">';
+                      item += '<div class="pull-left">';
+                      item += '<img style="width: 40px; height: 40px;" src="'+ post.author_thumbnail_url +'" />';
+                      item += '</div>';
+                      item += '<h3 class="media-body">'+ post.author +'</h3>';
+                      item += '</div>';
+                      item += '<p>'+ truncate(post.description, 150) +'</p>';
+                      item += '</div>';
+                      item += '</div>';
+                      item += '</div>';
+                      items.push(item);
+                    });
+                    $('#posts').append(items);
+                    LOADING = false;
+                  });
+                }
+              });*/
         });
     </script>
 {% endblock %}

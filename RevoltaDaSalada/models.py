@@ -40,7 +40,7 @@ class Post(InheritanceCastModel):
         return Post.objects.latest().cast().created_at
 
     class Meta:
-        abstract = True
+        ordering = ['-created_at']
         get_latest_by = "created_at"
 
 class InstagramPost(Post):
