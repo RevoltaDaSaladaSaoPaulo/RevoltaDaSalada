@@ -62,26 +62,56 @@
   <input type="hidden" class="page" value="1">
 </div>
 
-<footer class="site-footer min-layout-width" role="contentinfo">
+<nav id="page-nav">
+  <a href="/posts?page={{page|add:1}}"></a>
+</nav>
 
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/masonry.pkgd.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/jquery.infinitescroll.min.js"></script>
 {% block extra_js %}
     <script type="text/javascript" >
         $(document).ready(function() {   
             // equalHeight($(".thumbnail")); 
 
-              var $container = $('#posts');
+            var $container = $('#posts');
 
-              $container.masonry({
-                itemSelector: '.w'
-              });
+            // $container.masonry({
+            //     itemSelector: '.w'
+            // });
+            $container.imagesLoaded(function(){
+                $container.masonry({
+                    itemSelector: '.w',
+                });
+            });
 
-              function truncate(str, len) {
+            function truncate(str, len) {
                 if(str.length < len) return str;
                 return str.substring(0, len) + '...';
+            }
+            $container.infinitescroll({
+              navSelector  : '#page-nav',    // selector for the paged navigation
+              nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+              itemSelector : '.w',     // selector for all items you'll retrieve
+              contentSelector : '#posts',
+              loading: {
+                  finishedMsg: 'No more pages to load.',
+                  img: 'http://i.imgur.com/6RMhx.gif'
+                }
+              },
+              // trigger Masonry as a callback
+              function( newElements ) {
+                // hide new items while they are loading
+                var $newElems = $( newElements ).css({ opacity: 0 });
+                // ensure that images load before adding to masonry layout
+                $newElems.imagesLoaded(function(){
+                  // show elems now they're ready
+                  $newElems.animate({ opacity: 1 });
+                  $container.masonry( 'appended', $newElems, true );
+                });
               }
+            );
               /*var LOADING = false;
               $(window).on('scroll', function(a, b, c) {
                 if(!LOADING && ($(this).scrollTop() + $(this).height()) / $(document).height() > 0.85) {

@@ -21,22 +21,27 @@ class JSONResponseMixin(object):
         return HttpResponse(data, **response_kwargs)
 
 dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime.datetime) else None
-class Posts(JSONResponseMixin, View):
+class Posts(TemplateView):
+    template_name = 'posts.html'
 
-    def get(self, *args, **kwargs):
-        return self.render_to_json(self.get_context_data())
+    # def get(self, *args, **kwargs):
+    #     return self.render_to_json(self.get_context_data())
 
     def get_context_data(self, **kwargs):
-        paginator = Paginator(models.Post.objects.all(), 36)
+    	print "aquiiiiiiiiiiiiiiiiii"
+        context = super(Posts, self).get_context_data(**kwargs)
+        paginator = Paginator(models.Post.objects.all(), 12)
         page = self.request.GET.get('page', 1)
         try:
             posts = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
             posts = paginator.page(1)
+            page = 1;
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             posts = paginator.page(paginator.num_pages)
 
-        context = dict(posts=simplejson.dumps(list(posts.object_list.values()), default=dthandler), page=page)
+        context["posts"] = posts.object_list
+        context["page"] = page
         return context
