@@ -10,3 +10,8 @@ logger = get_task_logger(__name__)
 def import_instagram():
     logger.info('Importing Instagram...')
     importPost.import_instagram()
+
+@task(name="tasks.import_twitter")
+def import_twitter():
+    logger.info('Importing Twitter...')
+    importPost.import_twitter()

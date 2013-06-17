@@ -1,19 +1,11 @@
 #coding: utf-8
 from django.conf import settings
-import requests, simplejson as json, models, calendar, datetime, time
+from django.utils import timezone
+import requests, models, datetime, twitter
 
-
-from twython import Twython, TwythonAuthError, TwythonStreamer
+from twitter.oauth_dance import oauth_dance
 
 HASHTAGS = ['revoltadasalada']
-
-class MyStreamer(TwythonStreamer):
-    def on_success(self, data):
-        print 'successo', data, type(data)
-
-    def on_error(self, status_code, data):
-        print 'erro', status_code, data
-        self.disconnect()
 
 def import_instagram():
     if models.InstagramPost.objects.count():
@@ -46,12 +38,6 @@ def import_instagram():
 
 def import_twitter():
     def login():
-        import twitter
-        from twitter.oauth_dance import oauth_dance
-
-        '''stream = MyStreamer(settings.CONSUMER_KEY, settings.CONSUMER_SECRET,
-                            oauth_token, oauth_token_secret)
-        stream.statuses.filter(track=HASHTAGS[0])'''
 
         try:
             (oauth_token, oauth_token_secret) = "14255439-yjVwbkd6rFtWFgTdxE8tj6mEmmr7R255YfeRA8RdB", "6uY8k4TftKZLfs7emGKETDv8LiEt2urINENVUmtC4" 
@@ -66,30 +52,32 @@ def import_twitter():
     t = login()
 
     tweets = []
-    
+
     if models.TwitterPost.objects.count():
         last_post = models.TwitterPost.objects.latest('min_tag_id')
         min_tag_id = str(last_post.min_tag_id)
     else:
         min_tag_id = "0"
 
+    print min_tag_id
     for hashtag in HASHTAGS:
-        data = t.search.tweets(q=hashtag, since_id=min_tag_id)
+        data = t.search.tweets(q=hashtag, since_id=min_tag_id, count=100)
         tweets += data.get('statuses', [])
 
     if tweets:
-        next_min_tag_id = int(data["search_metadata"]["since_id"])
+        next_min_tag_id = int(data["search_metadata"]["max_id_str"])
         for tweet in tweets:
             try:
-                id = tweet["id"]
+                id = tweet["id_str"]
                 url = "https://twitter.com/%s/status/%s" % (tweet["user"]["screen_name"], tweet["id_str"])
                 profile_picture = tweet["user"]["profile_image_url"]
                 caption = tweet["text"]
                 username = tweet["user"]["name"]
-                created_at = time.strptime(tweet['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
+                created_at = datetime.datetime.strptime(tweet['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
+                created_at_aware = timezone.make_aware(created_at, timezone=timezone.get_default_timezone())
                 twitterPost = models.TwitterPost(description=caption, author=username,
                     author_thumbnail_url=profile_picture, url=url, original_id=id, 
-                    created_at=created_at, min_tag_id=next_min_tag_id)
+                    created_at=created_at_aware, min_tag_id=next_min_tag_id)
                 twitterPost.save()
             except Exception as e:
                 print e
