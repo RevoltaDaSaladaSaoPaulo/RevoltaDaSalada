@@ -67,6 +67,7 @@
 </nav>
 
 </footer>
+<script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/jquery.masonry.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/jquery.infinitescroll.min.js"></script>
@@ -77,19 +78,12 @@
 
             var $container = $('#posts');
 
-            // $container.masonry({
-            //     itemSelector: '.w'
-            // });
             $container.imagesLoaded(function(){
                 $container.masonry({
                     itemSelector: '.w',
                 });
             });
 
-            // function truncate(str, len) {
-            //     if(str.length < len) return str;
-            //     return str.substring(0, len) + '...';
-            // }
             $container.infinitescroll({
               navSelector  : '#page-nav',    // selector for the paged navigation
               nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
@@ -103,7 +97,6 @@
               },
               // trigger Masonry as a callback
               function( newElements ) {
-                console.log("aquiiiiiiiiii");
                 // hide new items while they are loading
                 var $newElems = $( newElements ).css({ opacity: 0 });
                 // ensure that images load before adding to masonry layout
@@ -114,38 +107,22 @@
                 });
               }
             );
-              /*var LOADING = false;
-              $(window).on('scroll', function(a, b, c) {
-                if(!LOADING && ($(this).scrollTop() + $(this).height()) / $(document).height() > 0.85) {
-                  LOADING = true;
-                  $.getJSON('/posts', { page: parseInt($('.page').val()) + 1}, function(data) {
-                    $('.page').val(data.page);
-                    var items = [];
-                    $.each(JSON.parse(data.posts), function(i, post) {
-                      var item = '<div class="w">';
-                      item += '<div class="thumbnail">';
-                      if(post.image_url) {
-                        item += '<a href="'+ post.url +'"><img alt="" style="" src="'+ post.image_url +'"></a>';
-                      }
-                      item += '<div class="caption">';
-                      item += '<div class="media">';
-                      item += '<div class="pull-left">';
-                      item += '<img style="width: 40px; height: 40px;" src="'+ post.author_thumbnail_url +'" />';
-                      item += '</div>';
-                      item += '<h3 class="media-body">'+ post.author +'</h3>';
-                      item += '</div>';
-                      item += '<p>'+ truncate(post.description, 150) +'</p>';
-                      item += '</div>';
-                      item += '</div>';
-                      item += '</div>';
-                      items.push(item);
-                    });
-                    $('#posts').append(items);
-                    LOADING = false;
-                  });
-                }
-              });*/
         });
+        
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-25416844-1']);
+        _gaq.push(['_setDomainName', 'revoltadasalada.com.br']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    
     </script>
 {% endblock %}
 </body>
