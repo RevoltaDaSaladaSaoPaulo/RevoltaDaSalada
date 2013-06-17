@@ -19,4 +19,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.Index.as_view()),
     url(r'^posts$', views.Posts.as_view()),
+    url(r'^importinsta$', views.ImportInstagram),
+    url(r'^importfb$', views.ImportFacebook),
+    url(r'^importtwitter$', views.ImportTwitter),
 )

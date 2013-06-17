@@ -45,20 +45,23 @@ def import_facebook(url = "https://graph.facebook.com/search?q=%23revoltadasalad
                 models.FacebookPost.objects.get(original_id=id)
                 # go_to_next_page = False
             except:
-                author = post["from"]["name"]
-                author_id = post["from"]["id"]
-                profile_picture = "http://graph.facebook.com/" + author_id + "/picture"
-                message = post.get("message", "")
-                created_at = datetime.datetime.strptime(post["created_time"],'%Y-%m-%dT%H:%M:%S+0000')
-                created_at_aware = timezone.make_aware(created_at, timezone=timezone.get_default_timezone())
-                type = post["type"]
-                if type == "photo" or type == "link" or type == "video":
-                    image_url = post.get("picture", "")
-                    url = post.get("link", "")
-                    facebookPost = models.FacebookPost(description=message, author=author,
-                    author_thumbnail_url=profile_picture, url=url, original_id=id, image_url=image_url,
-                    created_at=created_at_aware, content=message)
-                    facebookPost.save()
+                try:
+                    author = post["from"]["name"]
+                    author_id = post["from"]["id"]
+                    profile_picture = "http://graph.facebook.com/" + author_id + "/picture"
+                    message = post.get("message", "")
+                    created_at = datetime.datetime.strptime(post["created_time"],'%Y-%m-%dT%H:%M:%S+0000')
+                    created_at_aware = timezone.make_aware(created_at, timezone=timezone.get_default_timezone())
+                    type = post["type"]
+                    if type == "photo" or type == "link" or type == "video":
+                        image_url = post.get("picture", "")
+                        url = post.get("link", "")
+                        facebookPost = models.FacebookPost(description=message, author=author,
+                        author_thumbnail_url=profile_picture, url=url, original_id=id, image_url=image_url,
+                        created_at=created_at_aware, content=message)
+                        facebookPost.save()
+                except:
+                    pass
     if go_to_next_page and answer.get("paging", None) and answer["paging"].get("next", None):
         import_facebook(answer["paging"]["next"])
 

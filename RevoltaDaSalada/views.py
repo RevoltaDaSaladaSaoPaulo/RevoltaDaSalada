@@ -45,3 +45,16 @@ class Posts(TemplateView):
         context["posts"] = posts.object_list
         context["page"] = page
         return context
+
+def ImportInstagram(request):
+	importPost.import_instagram()
+	return HttpResponse("ok")
+
+def ImportFacebook(request):
+	importPost.import_facebook()
+	return HttpResponse("ok")
+
+def ImportTwitter(request):
+	importPost.import_twitter()
+	return HttpResponse("ok")
+		
