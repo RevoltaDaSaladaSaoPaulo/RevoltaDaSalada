@@ -3,17 +3,7 @@ from django.conf import settings
 import requests, simplejson as json, models, calendar, datetime, time
 
 
-from twython import Twython, TwythonAuthError, TwythonStreamer
-
 HASHTAGS = ['revoltadasalada']
-
-class MyStreamer(TwythonStreamer):
-    def on_success(self, data):
-        print 'successo', data, type(data)
-
-    def on_error(self, status_code, data):
-        print 'erro', status_code, data
-        self.disconnect()
 
 def import_instagram():
     if models.InstagramPost.objects.count():
