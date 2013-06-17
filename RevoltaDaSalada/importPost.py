@@ -43,7 +43,7 @@ def import_facebook(url = "https://graph.facebook.com/search?q=%23revoltadasalad
             id = post["id"]
             try:
                 models.FacebookPost.objects.get(original_id=id)
-                # go_to_next_page = False
+                go_to_next_page = False
             except:
                 try:
                     author = post["from"]["name"]
