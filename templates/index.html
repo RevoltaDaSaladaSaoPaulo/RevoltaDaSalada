@@ -67,7 +67,7 @@
 </nav>
 
 </footer>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/jquery.masonry.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}libs/masonry/jquery.infinitescroll.min.js"></script>
 {% block extra_js %}
@@ -90,28 +90,30 @@
             //     if(str.length < len) return str;
             //     return str.substring(0, len) + '...';
             // }
-            // $container.infinitescroll({
-            //   navSelector  : '#page-nav',    // selector for the paged navigation
-            //   nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
-            //   itemSelector : '.w',     // selector for all items you'll retrieve
-            //   contentSelector : '#posts',
-            //   loading: {
-            //       finishedMsg: 'No more pages to load.',
-            //       img: 'http://i.imgur.com/6RMhx.gif'
-            //     }
-            //   },
-            //   // trigger Masonry as a callback
-            //   function( newElements ) {
-            //     // hide new items while they are loading
-            //     var $newElems = $( newElements ).css({ opacity: 0 });
-            //     // ensure that images load before adding to masonry layout
-            //     $newElems.imagesLoaded(function(){
-            //       // show elems now they're ready
-            //       $newElems.animate({ opacity: 1 });
-            //       $container.masonry( 'appended', $newElems, true );
-            //     });
-            //   }
-            // );
+            $container.infinitescroll({
+              navSelector  : '#page-nav',    // selector for the paged navigation
+              nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+              itemSelector : '.w',     // selector for all items you'll retrieve
+              contentSelector : '#posts',
+              debug : true,
+              loading: {
+                  finishedMsg: 'No more pages to load.',
+                  img: 'http://i.imgur.com/6RMhx.gif'
+                }
+              },
+              // trigger Masonry as a callback
+              function( newElements ) {
+                console.log("aquiiiiiiiiii");
+                // hide new items while they are loading
+                var $newElems = $( newElements ).css({ opacity: 0 });
+                // ensure that images load before adding to masonry layout
+                $newElems.imagesLoaded(function(){
+                  // show elems now they're ready
+                  $newElems.animate({ opacity: 1 });
+                  $container.masonry( 'appended', $newElems, true );
+                });
+              }
+            );
               /*var LOADING = false;
               $(window).on('scroll', function(a, b, c) {
                 if(!LOADING && ($(this).scrollTop() + $(this).height()) / $(document).height() > 0.85) {

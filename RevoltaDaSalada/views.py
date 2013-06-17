@@ -9,8 +9,9 @@ class Index(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Index, self).get_context_data(**kwargs)
-        posts = models.Post.objects.all()[:200]
+        posts = models.Post.objects.all()[:12]
         context['posts'] = posts
+        context['page'] = 1
         return context
 
 class JSONResponseMixin(object):
