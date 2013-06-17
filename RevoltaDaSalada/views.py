@@ -29,7 +29,6 @@ class Posts(TemplateView):
     #     return self.render_to_json(self.get_context_data())
 
     def get_context_data(self, **kwargs):
-    	print "aquiiiiiiiiiiiiiiiiii"
         context = super(Posts, self).get_context_data(**kwargs)
         paginator = Paginator(models.Post.objects.all(), 12)
         page = self.request.GET.get('page', 1)
