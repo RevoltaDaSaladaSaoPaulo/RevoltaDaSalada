@@ -10,6 +10,10 @@ from datetime import timedelta
 CELERYBEAT_SCHEDULE = 'djcelery.schedulers.DatabaseScheduler'
 
 CELERY_TIMEZONE = 'UTC'
+CONSUMER_KEY = "SENI1N945cBeHNgI1MPggg"
+CONSUMER_SECRET = "935GBTyKTY1q0bacjDAYC4AFiomTQFpaC6fE3ToEIc"
+TOKEN_KEY = "14255439-yjVwbkd6rFtWFgTdxE8tj6mEmmr7R255YfeRA8RdB"
+TOKEN_SECRET = "6uY8k4TftKZLfs7emGKETDv8LiEt2urINENVUmtC4"
 
 # Full filesystem path to the project.
 PROJECT_ROOT = os.path.join(

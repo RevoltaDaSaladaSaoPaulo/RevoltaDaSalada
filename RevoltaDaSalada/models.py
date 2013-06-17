@@ -32,7 +32,7 @@ class Post(models.Model):
     author_thumbnail_url = models.CharField(max_length=500)
     url = models.URLField()
     created_at = models.DateTimeField()
-    original_id = models.CharField(max_length=800)
+    original_id = models.CharField(max_length=800, unique=True)
     featured = models.BooleanField(default=False)
 
     @property
@@ -48,7 +48,7 @@ class InstagramPost(Post):
     min_tag_id = models.BigIntegerField()
 
 class TwitterPost(Post):
-    pass
+    min_tag_id = models.BigIntegerField()
 
 class FacebookPost(Post):
     content = models.TextField()
