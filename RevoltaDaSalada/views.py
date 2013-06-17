@@ -7,8 +7,8 @@ class Index(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        context = super(Index, self).get_context_data(**kwargs)
-        importPost.import_twitter()
-        context['instagramPosts'] = models.InstagramPost.objects.all()
-        #context['twitterPosts'] = models.TwitterPost.objects.all()
-        return context
+	    # importPost.import_facebook()
+	    context = super(Index, self).get_context_data(**kwargs)
+	    # context['posts'] = models.InstagramPost.objects.all()
+	    context['posts'] = models.FacebookPost.objects.all()
+	    return context
