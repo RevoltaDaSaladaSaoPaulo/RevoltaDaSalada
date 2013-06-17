@@ -52,3 +52,4 @@ class TwitterPost(Post):
 
 class FacebookPost(Post):
     content = models.TextField()
+    image_url = models.TextField(blank=True, null=True)

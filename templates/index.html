@@ -40,10 +40,10 @@
     <section>
     <div class="row-fluid">
         <ul class="thumbnails">
-            {% for instagramPost in instagramPosts %}
+            {% for instagramPost in posts %}
                 <li class="span4">
                 <div class="thumbnail">
-                  <img alt="" style="width: 280px; height: 280px;" src="{{instagramPost.image_url}}">
+                  <a href="{{instagramPost.url}}"><img alt="" style="" src="{{instagramPost.image_url}}"></a>
                   <div class="caption">
                     <div class="media">
                         <div class="pull-left">
@@ -81,7 +81,7 @@
         } 
 
         $(document).ready(function() {   
-            equalHeight($(".thumbnail")); 
+            // equalHeight($(".thumbnail")); 
         });
     </script>
 {% endblock %}
