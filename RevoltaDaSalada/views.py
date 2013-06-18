@@ -46,15 +46,30 @@ class Posts(TemplateView):
         context["page"] = page
         return context
 
-def ImportInstagram(request):
-	importPost.import_instagram()
-	return HttpResponse("ok")
+class ImportInstagram(TemplateView):
+    template_name = 'refresh.html'
 
-def ImportFacebook(request):
-	importPost.import_facebook()
-	return HttpResponse("ok")
+    def get_context_data(self, **kwargs):
+		importPost.import_instagram()
+		context = super(ImportInstagram, self).get_context_data(**kwargs)
+		context["timedelta"] = 15
+		return context
 
-def ImportTwitter(request):
-	importPost.import_twitter()
-	return HttpResponse("ok")
+class ImportFacebook(TemplateView):
+    template_name = 'refresh.html'
+
+    def get_context_data(self, **kwargs):
+		importPost.import_facebook()
+		context = super(ImportFacebook, self).get_context_data(**kwargs)
+		context["timedelta"] = 30
+		return context
+
+class ImportTwitter(TemplateView):
+    template_name = 'refresh.html'
+
+    def get_context_data(self, **kwargs):
+		importPost.import_twitter()
+		context = super(ImportTwitter, self).get_context_data(**kwargs)
+		context["timedelta"] = 360
+		return context
 		
